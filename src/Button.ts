@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as PIXI from "pixi.js";
 
@@ -58,13 +58,14 @@ export class Button extends PIXI.Container {
         this.addChild(this.text)
     }
     protected onPointerUp() {
-        console.log(this.background.tint)
+
         this.background.tint = 0xff0000;
         // override this ^
         // create a class that extends button on pointer down to change color with a different color 
         // open something
     }
     protected onPointerDown() {
+
         this.background.tint = 0xffffff;
     }
 }

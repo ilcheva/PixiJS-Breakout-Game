@@ -70,4 +70,5 @@
             "jest-canvas-mock"
         ]
     }
+  
 }

@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 
 import { Button } from "./Button";
 // import { GameApplication } from "./GameApplication";
