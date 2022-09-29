@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 
 import { Button } from "./Button";
 // import { GameApplication } from "./GameApplication";
@@ -17,12 +17,12 @@ export class Button1 extends Button {
         super.onPointerUp
 
 
-        this.dispacher.emit('btn1up')
+        this.dispacher.emit('changeBtnUp')
     }
 
     protected onPointerDown() {
         super.onPointerDown()
-        this.dispacher.emit('btn1down')
+        this.dispacher.emit('changeBtnDown')
 
     }
 
