@@ -193,10 +193,10 @@ export class GameApplication extends PIXI.Application {
         }
         if (this.btn3Down) {
             this.ballRotation(delta);
-            if (this.ball.x > this.view.width || this.ball.x < 0) {
+            if (this.ball.x + this.ball.width > this.view.width || this.ball.x < 0) {
                 this.angle = 180 - this.angle;
                 this.ballRotation(delta)
-            } else if (this.ball.y > this.view.height || this.ball.y < 0) {
+            } else if (this.ball.y + this.ball.height > this.view.height || this.ball.y < 0) {
                 this.angle = 360 - this.angle;
                 this.ballRotation(delta)
             }
