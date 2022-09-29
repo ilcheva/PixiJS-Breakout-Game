@@ -23,7 +23,7 @@ export class GameApplication extends PIXI.Application {
     private hitRightBorder: boolean = false;
     private hitTop: boolean = false
     private scaleVelocity: number = 0.05;
-    private angle: number = 35;
+    private angle: number = 45;
     private radians: number = 0;
 
     private myTicker: PIXI.Ticker;
