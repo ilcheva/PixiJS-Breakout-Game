@@ -3,6 +3,7 @@
 
 import * as PIXI from "pixi.js";
 
+
 // import { Button } from './Button'
 import { Button1 } from "./Button1";
 import { Button2 } from "./Button2";
@@ -153,7 +154,14 @@ export class GameApplication extends PIXI.Application {
         this.ball.y = 200;
         this.mainContainer.addChild(this.ball);
     }
+    private ballRotation(delta: number) {
 
+        this.radians = this.angle * Math.PI / 180;
+        const shiftX = Math.cos(this.radians) * this.velocity * delta;
+        const shiftY = Math.sin(this.radians) * this.velocity * delta;
+        this.ball.x += shiftX;
+        this.ball.y += shiftY;
+    }
     private onLoadComplete() { }
     private onTick(delta: number) {
         if (this.btn1Down) {
@@ -184,36 +192,13 @@ export class GameApplication extends PIXI.Application {
             }
         }
         if (this.btn3Down) {
-            if (
-                this.ball.x + this.ball.width < this.view.width &&
-                !this.hitRightBorder && !this.hitTop
-            ) {
-
-                this.radians = this.angle * Math.PI / 180;
-                this.ball.x += Math.cos(this.radians) * this.velocity * delta;
-                this.ball.y += Math.sin(this.radians) * this.velocity * delta;
-            } else {
-                this.hitRightBorder = true;
-            }
-            if (this.ball.x > 0 && this.hitRightBorder) {
-
-                this.radians = this.angle * Math.PI / 180;
-                this.ball.x -= Math.sin(this.radians) * this.velocity * delta;
-                this.ball.y -= Math.cos(this.radians) * this.velocity * delta;
-            } else {
-                this.hitRightBorder = false;
-            }
-            if (this.ball.y < 0 && !this.hitRightBorder) {
-                this.radians = this.angle * Math.PI / 360;
-                this.ball.x -= Math.cos(this.radians) * this.velocity * delta;
-                this.ball.y += Math.cos(this.radians) * this.velocity * delta;
-            } else {
-                this.hitTop = false
-            }
-            if (this.ball.y + this.ball.height > this.view.height) {
-                this.radians = this.angle * Math.PI / 360;
-                this.ball.x += Math.cos(this.radians) * this.velocity * delta;
-                this.ball.y -= Math.sin(this.radians) * this.velocity * delta;
+            this.ballRotation(delta);
+            if (this.ball.x > this.view.width || this.ball.x < 0) {
+                this.angle = 180 - this.angle;
+                this.ballRotation(delta)
+            } else if (this.ball.y > this.view.height || this.ball.y < 0) {
+                this.angle = 360 - this.angle;
+                this.ballRotation(delta)
             }
 
 
