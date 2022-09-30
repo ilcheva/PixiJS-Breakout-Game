@@ -1,6 +1,6 @@
-import { Button } from "./Button";
+import { Button } from "../Button";
 
-export class Button3 extends Button {
+export class BounceBtn extends Button {
     constructor(label: string) {
         super(label);
     }
@@ -11,12 +11,12 @@ export class Button3 extends Button {
     protected onPointerUp() {
 
         this.background.alpha = 0;
-        this.dispacher.emit('btn3up');
+        this.dispacher.emit('bounceBtnup');
 
     }
     protected onPointerDown() {
         this.background.alpha = 1;
-        this.dispacher.emit('btn3down');
+        this.dispacher.emit('bounceBtndown');
 
     }
 }

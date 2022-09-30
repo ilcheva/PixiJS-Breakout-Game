@@ -1,10 +1,10 @@
 
 
-import { Button } from "./Button";
+import { Button } from "../Button";
 // import { GameApplication } from "./GameApplication";
 
 
-export class Button1 extends Button {
+export class MoveBtn extends Button {
     constructor(label: string) {
         super(label)
     }
@@ -17,12 +17,12 @@ export class Button1 extends Button {
         super.onPointerUp
 
 
-        this.dispacher.emit('btn1up')
+        this.dispacher.emit('moveBtnup')
     }
 
     protected onPointerDown() {
         super.onPointerDown()
-        this.dispacher.emit('btn1down')
+        this.dispacher.emit('moveBtndown')
 
     }
 

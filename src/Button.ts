@@ -39,7 +39,7 @@ export class Button extends PIXI.Container {
     private createBackground() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
         gfx.beginFill(0x0000ff)
-        gfx.drawRoundedRect(0, 0, 200, 40, 10);
+        gfx.drawRoundedRect(0, 0, 150, 40, 10);
         gfx.endFill();
         const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
         this.background = new PIXI.Sprite(texture);

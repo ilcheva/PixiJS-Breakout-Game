@@ -5,9 +5,10 @@ import * as PIXI from "pixi.js";
 
 
 // import { Button } from './Button'
-import { Button1 } from "./Button1";
-import { Button2 } from "./Button2";
-import { Button3 } from "./Button3";
+import { MoveBtn } from "./Buttons/MoveBtn";
+import { ScaleUpBtn } from "./Buttons/ScaleUpBtn";
+import { BounceBtn } from "./Buttons/BounceBtn";
+import { ScaleDownBtn } from "./Buttons/ScaleDownBtn";
 
 export class GameApplication extends PIXI.Application {
     public static STAGE_WIDTH: number = 800;
@@ -17,9 +18,10 @@ export class GameApplication extends PIXI.Application {
     private mainContainer: PIXI.Container;
     private ball: PIXI.Sprite;
     private velocity: number = 10;
-    private btn1Down: boolean = false;
-    private btn2Down: boolean = false;
-    private btn3Down: boolean = false;
+    private moveBtnDown: boolean = false;
+    private scaleUpBtnDown: boolean = false;
+    private bounceBtnDown: boolean = false;
+    private scaleDownBtnDown: boolean = false;
     private hitRightBorder: boolean = false;
     private hitTop: boolean = false
     private scaleVelocity: number = 0.05;
@@ -99,48 +101,60 @@ export class GameApplication extends PIXI.Application {
 
     private createButton() {
         //
-        const btn1: Button1 = new Button1("Button1");
-        const btn2: Button2 = new Button2("Button2");
-        const btn3: Button3 = new Button3("Button3");
+        const moveBtn: MoveBtn = new MoveBtn("Move");
+        const bounceBtn: BounceBtn = new BounceBtn("Bounce");
+        const scaleUpBtn: ScaleUpBtn = new ScaleUpBtn("Scale Up");
+        const scaleDownBtn: ScaleDownBtn = new ScaleDownBtn("Scale Down");
 
 
-        btn1.getDispacher().addListener("btn1up", this.onBtn1Up, this);
-        btn1.getDispacher().addListener("btn1down", this.onBtn1Down, this);
-        btn2.getDispacher().addListener("btn2up", this.onBtn2Up, this);
-        btn2.getDispacher().addListener("btn2down", this.onBtn2Down, this);
-        btn3.getDispacher().addListener("btn3up", this.onBtn3Up, this);
-        btn3.getDispacher().addListener("btn3down", this.onBtn3Down, this);
+        moveBtn.getDispacher().addListener("moveBtnup", this.onmoveBtnUp, this);
+        moveBtn.getDispacher().addListener("moveBtndown", this.onmoveBtnDown, this);
+        bounceBtn.getDispacher().addListener("bounceBtnup", this.onbounceBtnUp, this);
+        bounceBtn.getDispacher().addListener("bounceBtndown", this.onbounceBtnDown, this);
+        scaleUpBtn.getDispacher().addListener("scaleUpBtnup", this.onscaleUpBtnUp, this);
+        scaleUpBtn.getDispacher().addListener("scaleUpBtndown", this.onscaleUpBtnDown, this);
+        scaleDownBtn.getDispacher().addListener("scaleDownBtnup", this.onscaleDownBtnUp, this);
+        scaleDownBtn.getDispacher().addListener("scaleDownBtndown", this.onscaleDownBtnDown, this);
 
 
-        btn1.x = 50;
-        btn1.y = 500;
-        btn2.x = 300;
-        btn2.y = 500;
-        btn3.x = 550;
-        btn3.y = 500;
+        moveBtn.x = 40;
+        moveBtn.y = this.view.height - moveBtn.height - 20;
+        bounceBtn.x = 230;
+        bounceBtn.y = this.view.height - scaleUpBtn.height - 20;
+        scaleUpBtn.x = 420;
+        scaleUpBtn.y = this.view.height - scaleUpBtn.height - 20;
+        scaleDownBtn.x = this.view.width - scaleDownBtn.width - 40;
+        scaleDownBtn.y = this.view.height - scaleUpBtn.height - 20;
 
-        this.mainContainer.addChild(btn1);
-        this.mainContainer.addChild(btn2);
-        this.mainContainer.addChild(btn3);
+        this.mainContainer.addChild(moveBtn);
+        this.mainContainer.addChild(bounceBtn);
+        this.mainContainer.addChild(scaleUpBtn);
+        this.mainContainer.addChild(scaleDownBtn);
     }
 
-    private onBtn1Up() {
-        this.btn1Down = false;
+    private onmoveBtnUp() {
+        this.moveBtnDown = false;
     }
-    private onBtn1Down() {
-        this.btn1Down = true;
+    private onmoveBtnDown() {
+        this.moveBtnDown = true;
     }
-    private onBtn2Up() {
-        this.btn2Down = false;
+    private onbounceBtnUp() {
+        this.bounceBtnDown = false;
     }
-    private onBtn2Down() {
-        this.btn2Down = true;
+    private onbounceBtnDown() {
+        this.bounceBtnDown = true;
     }
-    private onBtn3Up() {
-        this.btn3Down = false;
+    private onscaleUpBtnUp() {
+        this.scaleUpBtnDown = false;
     }
-    private onBtn3Down() {
-        this.btn3Down = true;
+    private onscaleUpBtnDown() {
+        this.scaleUpBtnDown = true;
+    }
+    private onscaleDownBtnUp() {
+        this.scaleDownBtnDown = false;
+    }
+    private onscaleDownBtnDown() {
+        this.scaleDownBtnDown = true;
     }
 
     private createBall() {
@@ -154,17 +168,10 @@ export class GameApplication extends PIXI.Application {
         this.ball.y = 200;
         this.mainContainer.addChild(this.ball);
     }
-    private ballRotation(delta: number) {
 
-        this.radians = this.angle * Math.PI / 180;
-        const shiftX = Math.cos(this.radians) * this.velocity * delta;
-        const shiftY = Math.sin(this.radians) * this.velocity * delta;
-        this.ball.x += shiftX;
-        this.ball.y += shiftY;
-    }
     private onLoadComplete() { }
     private onTick(delta: number) {
-        if (this.btn1Down) {
+        if (this.moveBtnDown) {
             if (
                 this.ball.x + this.ball.width < this.view.width &&
                 !this.hitRightBorder
@@ -176,12 +183,11 @@ export class GameApplication extends PIXI.Application {
             }
             if (this.ball.x > 0 && this.hitRightBorder) {
                 this.ball.x -= this.velocity * delta;
-
             } else {
                 this.hitRightBorder = false;
             }
         }
-        if (this.btn2Down) {
+        if (this.scaleUpBtnDown) {
             const scaleX: number = (this.ball.scale.x += this.scaleVelocity);
             const scaleY: number = (this.ball.scale.y += this.scaleVelocity);
 
@@ -189,17 +195,48 @@ export class GameApplication extends PIXI.Application {
                 this.ball.scale.set(scaleX, scaleY);
             } else {
                 this.ball.scale.set(5, 5);
+                this.scaleUpBtnDown = false;
             }
         }
-        if (this.btn3Down) {
-            this.ballRotation(delta);
-            if (this.ball.x + this.ball.width > this.view.width || this.ball.x < 0) {
-                this.angle = 180 - this.angle;
-                this.ballRotation(delta)
-            } else if (this.ball.y + this.ball.height > this.view.height || this.ball.y < 0) {
-                this.angle = 360 - this.angle;
-                this.ballRotation(delta)
+        if (this.scaleDownBtnDown) {
+            const scaleX: number = (this.ball.scale.x -= this.scaleVelocity);
+            const scaleY: number = (this.ball.scale.y -= this.scaleVelocity);
+
+            if (this.ball.scale.x > 1 && this.ball.scale.y > 1) {
+                this.ball.scale.set(scaleX, scaleY);
+            } else {
+                this.ball.scale.set(1, 1);
+                this.scaleDownBtnDown = false;
             }
+        }
+        if (this.bounceBtnDown) {
+            this.radians = this.angle * Math.PI / 180;
+            const shiftX = Math.cos(this.radians) * this.velocity * delta;
+            const shiftY = Math.sin(this.radians) * this.velocity * delta;
+            this.ball.x += shiftX;
+            this.ball.y += shiftY;
+
+            if (this.ball.x + this.ball.width + shiftX >= this.view.width || this.ball.x + shiftX <= 0) {
+                
+                if (this.ball.x + this.ball.width + shiftX >= this.view.width) {
+                    this.ball.x = this.view.width - this.ball.width;
+                }
+                if (this.ball.x + shiftX <= 0) {
+                    this.ball.x = 0;
+                }
+                this.angle = 180 - this.angle;
+            } else if (this.ball.y + this.ball.height + shiftY >= this.view.height || this.ball.y + shiftY <= 0) {
+                
+                if (this.ball.y + this.ball.height + shiftY >= this.view.height) {
+                    this.ball.y = this.view.height - this.ball.height;
+                }
+                if (this.ball.y + shiftY <= 0) {
+                    this.ball.y = 0;
+                }
+                this.angle = 360 - this.angle;
+
+            }
+
 
 
         }
