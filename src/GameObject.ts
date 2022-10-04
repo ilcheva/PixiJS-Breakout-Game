@@ -8,7 +8,7 @@ export class GameObject extends PIXI.Container {
         super()
         this.id = id;
     }
-    public geId(): string {
+    public getId(): string {
         return this.id
     }
     public update(delta: number) {

@@ -10,6 +10,7 @@ import { Button2 } from './Button2';
 
 
 export class Game extends PIXI.Container {
+
     private gameObjects: Map<string, GameObject>;
     private ticker: PIXI.Ticker;
 
@@ -18,6 +19,8 @@ export class Game extends PIXI.Container {
 
     private changeBehaviorBtn: Button1;
     private initBehaviorBtn: Button2;
+    private btnOnInitUp: boolean = false;
+    private btnOnChangeUp: boolean = false;
 
     constructor() {
         super()
@@ -29,11 +32,12 @@ export class Game extends PIXI.Container {
         this.createUIContainer();
         this.createButton()
         this.createGameObject();
-        this.createGameObjList();
+        this.createGameObjectList();
 
     }
-    private createGameObjList() {
-        this.gameObjects = new Map<string, GameObject>;
+    private createGameObjectList() {
+        return new Map<string, GameObject>();
+
     }
     private createGameObjContaier() {
         this.gameObjectContainer = new PIXI.Container();
@@ -71,30 +75,50 @@ export class Game extends PIXI.Container {
         // ballGameObj.addBehavior(ballBehavior)
         this.gameObjectContainer.addChild(ballGameObj);
 
+        this.gameObjects = this.createGameObjectList()
+        this.gameObjects = this.gameObjects.set(ballGameObj.getId(), ballGameObj)
 
-        // this.gameObjects.push(ballGameObj)
 
 
     }
 
     private update(delta: number) {
-        this.gameObjects.forEach(gameObj => {
-            gameObj.update(delta);
-        })
+
+        if (this.btnOnInitUp) {
+            for (let gameObj of this.gameObjects.values()) {
+
+                gameObj.addBehavior(new BallBehavior(gameObj))
+                if (gameObj.x > 0) {
+                    gameObj.x = 0;
+                }
+
+            }
+
+
+        } else {
+            this.btnOnInitUp = false;
+        }
+        if (this.btnOnChangeUp) {
+            for (let gameObj of this.gameObjects.values()) {
+                gameObj.update(delta)
+                if (gameObj.x + gameObj.width === GameApplication.getApp().view.width) {
+
+                    this.btnOnChangeUp = false
+                }
+
+            }
+        }
+
+
     }
 
     private onInitBtnUp() {
-        console.log('init clicked')
-        //set behavior in button clicked
+
+        this.btnOnInitUp = true;
 
     }
     private onChangeBtnUp() {
-        console.log('change clicked')
-
-
-
+        this.btnOnChangeUp = true;
     }
-    private onInitBtnDown() {
 
-    }
 }
