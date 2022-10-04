@@ -13,6 +13,10 @@ export class SquareBehavior extends GameObjectBehavior {
     constructor(gameObjRef: GameObject) {
         super(gameObjRef)
     }
+    public destroy() {
+        this.square.destroy({ texture: true, baseTexture: true })
+        this.gameObjRef.removeChild(this.square)
+    }
 
     protected init(): void {
         this.createSquare()
@@ -31,12 +35,12 @@ export class SquareBehavior extends GameObjectBehavior {
 
 
     public update(delta: number) {
-        if (this.gameObjRef.x + this.gameObjRef.width + this.velocity * delta < GameApplication.getApp().view.width) {
+        // if (this.gameObjRef.x + this.gameObjRef.width + this.velocity * delta < GameApplication.getApp().view.width) {
 
-            this.gameObjRef.x += this.velocity * delta
-        } else {
-            this.gameObjRef.x = GameApplication.getApp().view.width - this.gameObjRef.width
-        }
+        //     this.gameObjRef.x += this.velocity * delta
+        // } else {
+        //     this.gameObjRef.x = GameApplication.getApp().view.width - this.gameObjRef.width
+        // }
 
 
 

@@ -9,7 +9,7 @@ export class GameObjectBehavior {
         this.gameObjRef = gameObjRef
         this.init()
     }
-
+    public destroy() { }
     protected init() { }
     public update(delta: number) { }
 }

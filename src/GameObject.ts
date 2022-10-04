@@ -3,12 +3,16 @@ import { GameObjectBehavior } from "./GameObjectBehavior"
 
 export class GameObject extends PIXI.Container {
     private id: string;
-    private behaviors: Array<GameObjectBehavior> = [];
+    private behaviors: Map<string, GameObjectBehavior>
     constructor(id: string) {
         super()
         this.id = id;
+        this.init()
     }
-    public geId(): string {
+    private init() {
+        this.behaviors = new Map<string, GameObjectBehavior>();
+    }
+    public getId(): string {
         return this.id
     }
     public update(delta: number) {
@@ -16,7 +20,17 @@ export class GameObject extends PIXI.Container {
             behavior.update(delta)
         })
     }
-    public addBehavior(behavior: GameObjectBehavior) {
-        this.behaviors.push(behavior)
+    public addBehavior(id: string, behavior: GameObjectBehavior) {
+
+        this.behaviors.set(id, behavior)
+    }
+    public removeBehavior(id: string) {
+        if (!this.behaviors.has(id)) {
+            console.log(id)
+            return;
+        }
+        this.behaviors.get(id).destroy()
+        this.behaviors.delete(id)
+
     }
 }

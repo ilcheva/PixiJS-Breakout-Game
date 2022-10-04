@@ -7,17 +7,27 @@ import { GameObject } from "./GameObject"
 export class BallBehavior extends GameObjectBehavior {
     private ball: PIXI.Sprite;
     private velocity: number = 10;
+    private keyPressed: boolean = false;
 
     constructor(gameObjRef: GameObject) {
         super(gameObjRef)
     }
-
+    public destroy() {
+        this.ball.destroy({ texture: true, baseTexture: true })
+        this.gameObjRef.removeChild(this.ball)
+    }
     protected init(): void {
-        this.createBall()
+        this.createBall();
+        this.setKeycallbackEvent()
+    }
+    private setKeycallbackEvent() {
+        this.onKeyUp = this.onKeyUp.bind(this)
+        window.addEventListener('keypress', this.onKeyUp)
+
     }
     private createBall() {
-        const gfx: PIXI.Graphics = new PIXI.Graphics()
-        gfx.beginFill(0xffffff)
+        const gfx: PIXI.Graphics = new PIXI.Graphics();
+        gfx.beginFill(0xffffff);
         gfx.drawCircle(0, 0, 20);
         gfx.endFill()
 
@@ -29,6 +39,11 @@ export class BallBehavior extends GameObjectBehavior {
 
 
     public update(delta: number) {
+
+        if (!this.keyPressed) {
+            return;
+
+        }
         if (this.gameObjRef.x + this.gameObjRef.width + this.velocity * delta < GameApplication.getApp().view.width) {
 
             this.gameObjRef.x += this.velocity * delta
@@ -38,6 +53,11 @@ export class BallBehavior extends GameObjectBehavior {
 
 
 
+    }
+    private onKeyUp(e: any) {
+        if (e.code === 'Space') {
+            this.keyPressed = true
+        }
     }
 
 }
