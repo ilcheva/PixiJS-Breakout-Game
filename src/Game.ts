@@ -29,7 +29,7 @@ export class Game extends PIXI.Container {
         this.createGameObjList();
         this.createGameObjContaier();
         this.createUIContainer();
-        this.createButton()
+        this.createButton();
         this.createGameObject();
 
 
@@ -51,11 +51,11 @@ export class Game extends PIXI.Container {
 
         this.changeBehaviorBtn.x = 400;
         this.changeBehaviorBtn.y = GameApplication.getApp().view.height - this.changeBehaviorBtn.height - 10;
-        this.changeBehaviorBtn.getDispacher().addListener('changeBtnUp', this.onChangeBtnUp, this)
-        this.initBehaviorBtn = new Button2('Initial Behavior')
+        this.changeBehaviorBtn.getDispacher().addListener('changeBtnUp', this.onChangeBtnUp, this);
+        this.initBehaviorBtn = new Button2('Initial Behavior');
         this.initBehaviorBtn.x = 180;
         this.initBehaviorBtn.y = GameApplication.getApp().view.height - this.changeBehaviorBtn.height - 10;
-        this.initBehaviorBtn.getDispacher().addListener('initBtnUp', this.onInitBtnUp, this)
+        this.initBehaviorBtn.getDispacher().addListener('initBtnUp', this.onInitBtnUp, this);
 
         this.uiContainer.addChild(this.changeBehaviorBtn);
         this.uiContainer.addChild(this.initBehaviorBtn);
@@ -88,7 +88,7 @@ export class Game extends PIXI.Container {
 
         this.addGameObject(squareGameObj);
         const squareBehavior: SquareBehavior = new SquareBehavior(squareGameObj);
-        squareBehavior.setBallObjRef(this.getGameObjById('gameObj1'))
+        squareBehavior.setBallObjRef(this.getGameObjById('gameObj1'));
         squareGameObj.addBehavior('squareBehavior', squareBehavior);
 
     }
@@ -106,7 +106,7 @@ export class Game extends PIXI.Container {
         if (!this.gameObjects.has(id)) {
             return null;
         }
-        return this.gameObjects.get(id)
+        return this.gameObjects.get(id);
     }
     private onInitBtnUp() {
 

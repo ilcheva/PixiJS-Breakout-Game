@@ -5,9 +5,9 @@ export class GameObject extends PIXI.Container {
     private id: string;
     private behaviors: Map<string, GameObjectBehavior>
     constructor(id: string) {
-        super()
+        super();
         this.id = id;
-        this.init()
+        this.init();
     }
     private init() {
         this.behaviors = new Map<string, GameObjectBehavior>();
@@ -17,18 +17,18 @@ export class GameObject extends PIXI.Container {
     }
     public update(delta: number) {
         this.behaviors.forEach(behavior => {
-            behavior.update(delta)
+            behavior.update(delta);
         })
     }
     public addBehavior(id: string, behavior: GameObjectBehavior) {
 
-        this.behaviors.set(id, behavior)
+        this.behaviors.set(id, behavior);
     }
     public removeBehavior(id: string) {
         if (!this.behaviors.has(id)) {            
             return;
         }
-        this.behaviors.get(id).destroy()
+        this.behaviors.get(id).destroy();
         this.behaviors.delete(id);
 
     }

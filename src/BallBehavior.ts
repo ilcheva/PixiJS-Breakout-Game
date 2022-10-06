@@ -10,7 +10,7 @@ export class BallBehavior extends GameObjectBehavior {
     public keyPressed: boolean = false;
 
     constructor(gameObjRef: GameObject) {
-        super(gameObjRef)
+        super(gameObjRef);
     }
     public destroy() {
         this.ball.destroy({ texture: true, baseTexture: true });
@@ -19,11 +19,11 @@ export class BallBehavior extends GameObjectBehavior {
 
     protected init(): void {
         this.createBall();
-        this.setKeycallbackEvent()
+        this.setKeycallbackEvent();
     }
     private setKeycallbackEvent() {
-        this.onKeyUp = this.onKeyUp.bind(this)
-        window.addEventListener('keypress', this.onKeyUp)
+        this.onKeyUp = this.onKeyUp.bind(this);
+        window.addEventListener('keypress', this.onKeyUp);
 
     }
     private createBall() {

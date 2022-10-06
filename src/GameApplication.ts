@@ -50,8 +50,8 @@ export class GameApplication extends PIXI.Application {
         };
     }
     private createGame() {
-        this.game = new Game()
-        this.mainContainer.addChild(this.game)
+        this.game = new Game();
+        this.mainContainer.addChild(this.game);
 
     }
 
@@ -65,7 +65,7 @@ export class GameApplication extends PIXI.Application {
 
     private resizeCanvas(): void {
         this.onResize();
-        this.onResize = this.onResize.bind(this)
+        this.onResize = this.onResize.bind(this);
 
         window.addEventListener('resize', this.onResize);
     }
