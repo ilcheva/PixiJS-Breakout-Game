@@ -13,7 +13,7 @@ export class GameObject extends PIXI.Container {
         this.behaviors = new Map<string, GameObjectBehavior>();
     }
     public getId(): string {
-        return this.id
+        return this.id;
     }
     public update(delta: number) {
         this.behaviors.forEach(behavior => {
@@ -25,12 +25,11 @@ export class GameObject extends PIXI.Container {
         this.behaviors.set(id, behavior)
     }
     public removeBehavior(id: string) {
-        if (!this.behaviors.has(id)) {
-            console.log(id)
+        if (!this.behaviors.has(id)) {            
             return;
         }
         this.behaviors.get(id).destroy()
-        this.behaviors.delete(id)
+        this.behaviors.delete(id);
 
     }
 }

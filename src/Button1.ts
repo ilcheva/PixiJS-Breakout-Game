@@ -18,6 +18,7 @@ export class Button1 extends Button {
 
 
         this.dispacher.emit('changeBtnUp')
+        
     }
 
     protected onPointerDown() {

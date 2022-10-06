@@ -6,8 +6,8 @@ export class GameObjectBehavior {
 
     constructor(gameObjRef: GameObject) {
 
-        this.gameObjRef = gameObjRef
-        this.init()
+        this.gameObjRef = gameObjRef;
+        this.init();
     }
     public destroy() { }
     protected init() { }

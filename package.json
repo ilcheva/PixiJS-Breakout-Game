@@ -10,6 +10,8 @@
     "author": "rlavoie",
     "license": "MIT",
     "dependencies": {
+        "@pixi/math": "^6.5.5",
+        "@pixi/math-extras": "^6.5.5",
         "@types/greensock": "^1.15.32",
         "core-js": "^3.20.3",
         "gsap": "^3.10.4",

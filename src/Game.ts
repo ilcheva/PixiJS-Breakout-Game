@@ -71,7 +71,7 @@ export class Game extends PIXI.Container {
     }
     private createBallGameObj() {
         const ballGameObj: GameObject = new GameObject('gameObj1');
-        
+
         ballGameObj.x = 100;
         ballGameObj.y = 100;
 
@@ -84,9 +84,11 @@ export class Game extends PIXI.Container {
     private createSquareGameObj() {
         const squareGameObj: GameObject = new GameObject('gameObj2');
         squareGameObj.x = 500;
-        squareGameObj.y = 100;
+        squareGameObj.y = 75;
+
         this.addGameObject(squareGameObj);
         const squareBehavior: SquareBehavior = new SquareBehavior(squareGameObj);
+        squareBehavior.setBallObjRef(this.getGameObjById('gameObj1'))
         squareGameObj.addBehavior('squareBehavior', squareBehavior);
 
     }
@@ -120,7 +122,7 @@ export class Game extends PIXI.Container {
 
     }
     private onChangeBtnUp() {
-      
+
 
 
     }

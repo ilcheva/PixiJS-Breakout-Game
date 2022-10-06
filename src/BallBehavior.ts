@@ -7,15 +7,16 @@ import { GameObject } from "./GameObject"
 export class BallBehavior extends GameObjectBehavior {
     private ball: PIXI.Sprite;
     private velocity: number = 10;
-    private keyPressed: boolean = false;
+    public keyPressed: boolean = false;
 
     constructor(gameObjRef: GameObject) {
         super(gameObjRef)
     }
     public destroy() {
-        this.ball.destroy({ texture: true, baseTexture: true })
-        this.gameObjRef.removeChild(this.ball)
+        this.ball.destroy({ texture: true, baseTexture: true });
+        this.gameObjRef.removeChild(this.ball);
     }
+
     protected init(): void {
         this.createBall();
         this.setKeycallbackEvent()
@@ -29,12 +30,16 @@ export class BallBehavior extends GameObjectBehavior {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
         gfx.beginFill(0xffffff);
         gfx.drawCircle(0, 0, 20);
-        gfx.endFill()
+        gfx.endFill();
 
-        const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx)
-        this.ball = new PIXI.Sprite(texture)
+        const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
+        this.ball = new PIXI.Sprite(texture);
 
-        this.gameObjRef.addChild(this.ball)
+        this.gameObjRef.addChild(this.ball);
+    }
+    public BallRef() {
+        const ballObjRef = this.gameObjRef;
+        return ballObjRef;
     }
 
 
@@ -46,9 +51,10 @@ export class BallBehavior extends GameObjectBehavior {
         }
         if (this.gameObjRef.x + this.gameObjRef.width + this.velocity * delta < GameApplication.getApp().view.width) {
 
-            this.gameObjRef.x += this.velocity * delta
+            this.gameObjRef.x += this.velocity * delta;
         } else {
-            this.gameObjRef.x = GameApplication.getApp().view.width - this.gameObjRef.width
+            this.gameObjRef.x = GameApplication.getApp().view.width - this.gameObjRef.width;
+            this.keyPressed = false;
         }
 
 
@@ -56,7 +62,7 @@ export class BallBehavior extends GameObjectBehavior {
     }
     private onKeyUp(e: any) {
         if (e.code === 'Space') {
-            this.keyPressed = true
+            this.keyPressed = true;
         }
     }
 
