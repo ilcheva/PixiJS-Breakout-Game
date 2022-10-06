@@ -28,35 +28,35 @@ export class Game extends PIXI.Container {
     }
     private init() {
         this.createTicker();
+        this.createGameObjectList();
         this.createGameObjContaier();
         this.createUIContainer();
-        this.createButton()
+        this.createButton();
         this.createGameObject();
-        this.createGameObjectList();
 
     }
     private createGameObjectList() {
-        return new Map<string, GameObject>();
+        this.gameObjects = new Map<string, GameObject>();
 
     }
     private createGameObjContaier() {
         this.gameObjectContainer = new PIXI.Container();
-        this.addChild(this.gameObjectContainer)
+        this.addChild(this.gameObjectContainer);
     }
     private createUIContainer() {
-        this.uiContainer = new PIXI.Container()
-        this.addChild(this.uiContainer)
+        this.uiContainer = new PIXI.Container();
+        this.addChild(this.uiContainer);
     }
     private createButton() {
         this.changeBehaviorBtn = new Button1('Change Behavior');
 
         this.changeBehaviorBtn.x = 400;
         this.changeBehaviorBtn.y = GameApplication.getApp().view.height - this.changeBehaviorBtn.height - 10;
-        this.changeBehaviorBtn.getDispacher().addListener('changeBtnUp', this.onChangeBtnUp, this)
-        this.initBehaviorBtn = new Button2('Initial Behavior')
+        this.changeBehaviorBtn.getDispacher().addListener('changeBtnUp', this.onChangeBtnUp, this);
+        this.initBehaviorBtn = new Button2('Initial Behavior');
         this.initBehaviorBtn.x = 180;
         this.initBehaviorBtn.y = GameApplication.getApp().view.height - this.changeBehaviorBtn.height - 10;
-        this.initBehaviorBtn.getDispacher().addListener('initBtnUp', this.onInitBtnUp, this)
+        this.initBehaviorBtn.getDispacher().addListener('initBtnUp', this.onInitBtnUp, this);
 
         this.uiContainer.addChild(this.changeBehaviorBtn);
         this.uiContainer.addChild(this.initBehaviorBtn);
@@ -71,12 +71,9 @@ export class Game extends PIXI.Container {
     }
     private createBallGameObj() {
         const ballGameObj: GameObject = new GameObject('gameObj1');
-        // const ballBehavior: BallBehavior = new BallBehavior(ballGameObj);
-        // ballGameObj.addBehavior(ballBehavior)
         this.gameObjectContainer.addChild(ballGameObj);
 
-        this.gameObjects = this.createGameObjectList()
-        this.gameObjects = this.gameObjects.set(ballGameObj.getId(), ballGameObj)
+        this.gameObjects = this.gameObjects.set(ballGameObj.getId(), ballGameObj);
 
 
 
@@ -84,37 +81,22 @@ export class Game extends PIXI.Container {
 
     private update(delta: number) {
 
-        if (this.btnOnInitUp) {
-            for (let gameObj of this.gameObjects.values()) {
-
-                gameObj.addBehavior(new BallBehavior(gameObj))
-                if (gameObj.x > 0) {
-                    gameObj.x = 0;
-                }
-
-            }
-
-
-        } else {
-            this.btnOnInitUp = false;
-        }
-        if (this.btnOnChangeUp) {
-            for (let gameObj of this.gameObjects.values()) {
-                gameObj.update(delta)
-                if (gameObj.x + gameObj.width === GameApplication.getApp().view.width) {
-
-                    this.btnOnChangeUp = false
-                }
-
-            }
-        }
-
+        this.gameObjects.forEach(gameObj => gameObj.update(delta));
 
     }
-
+    private getGameObjbyId(id: string): GameObject {
+        if (!this.gameObjects.has(id)) {
+            return null;
+        }
+        return this.gameObjects.get(id);
+    }
     private onInitBtnUp() {
-
-        this.btnOnInitUp = true;
+        const gameObj: GameObject = this.getGameObjbyId('gameObj1');
+        if (!gameObj) {
+            return;
+        }
+        const ballBehavior: BallBehavior = new BallBehavior(gameObj);
+        gameObj.addBehavior(ballBehavior);
 
     }
     private onChangeBtnUp() {
