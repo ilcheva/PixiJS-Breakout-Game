@@ -1,13 +1,13 @@
-import { GameObjectBehavior } from "./GameObjectBehavior"
 import * as PIXI from 'pixi.js';
-import { GameApplication } from './GameApplication'
-
-import { GameObject } from "./GameObject"
+import { GameObjectBehavior } from "./GameObjectBehavior";
+import { GameApplication } from './GameApplication';
+import { GameObject } from "./GameObject";
 
 export class BallBehavior extends GameObjectBehavior {
     private ball: PIXI.Sprite;
     private velocity: number = 10;
     public keyPressed: boolean = false;
+    public squareObjRef: GameObject;
 
     constructor(gameObjRef: GameObject) {
         super(gameObjRef);
@@ -41,29 +41,30 @@ export class BallBehavior extends GameObjectBehavior {
         const ballObjRef = this.gameObjRef;
         return ballObjRef;
     }
-
+    
+   
 
     public update(delta: number) {
 
         if (!this.keyPressed) {
             return;
-
         }
         if (this.gameObjRef.x + this.gameObjRef.width + this.velocity * delta < GameApplication.getApp().view.width) {
-
+            console.log(this.squareObjRef);
             this.gameObjRef.x += this.velocity * delta;
+
         } else {
             this.gameObjRef.x = GameApplication.getApp().view.width - this.gameObjRef.width;
             this.keyPressed = false;
+            
         }
-
-
-
     }
-    private onKeyUp(e: any) {
+
+    private onKeyUp(e: KeyboardEvent) {
         if (e.code === 'Space') {
             this.keyPressed = true;
+
+
         }
     }
-
 }

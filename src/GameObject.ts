@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js';
-import { GameObjectBehavior } from "./GameObjectBehavior"
+import { GameObjectBehavior } from "./GameObjectBehavior";
 
 export class GameObject extends PIXI.Container {
     private id: string;
-    private behaviors: Map<string, GameObjectBehavior>
+    private behaviors: Map<string, GameObjectBehavior>;
     constructor(id: string) {
         super();
         this.id = id;
@@ -18,14 +18,15 @@ export class GameObject extends PIXI.Container {
     public update(delta: number) {
         this.behaviors.forEach(behavior => {
             behavior.update(delta);
-        })
+        });
     }
     public addBehavior(id: string, behavior: GameObjectBehavior) {
 
         this.behaviors.set(id, behavior);
     }
+  
     public removeBehavior(id: string) {
-        if (!this.behaviors.has(id)) {            
+        if (!this.behaviors.has(id)) {
             return;
         }
         this.behaviors.get(id).destroy();

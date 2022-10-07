@@ -1,4 +1,4 @@
 import { GameApplication } from './GameApplication';
-import './Main.css'
+import './Main.css';
 
 const app = new GameApplication();

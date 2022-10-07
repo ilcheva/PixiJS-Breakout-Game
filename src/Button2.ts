@@ -1,7 +1,7 @@
 
 
 import { Button } from "./Button";
-
+import { EventDispacher } from './EventDispacher';
 export class Button2 extends Button {
     constructor(label: string) {
         super(label);
@@ -12,11 +12,11 @@ export class Button2 extends Button {
 
     protected onPointerUp() {
         super.onPointerUp;
-        this.dispacher.emit('initBtnUp')
+        EventDispacher.getInstance().getDispacher().emit('initBtnUp');
     }
-    protected onPointerDown(){
+    protected onPointerDown() {
         super.onPointerDown;
-        this.dispacher.emit('initBtnDown')
+        EventDispacher.getInstance().getDispacher().emit('initBtnDown');
 
 
     }

@@ -1,14 +1,6 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-
-
-
 import * as PIXI from 'pixi.js';
-
-
-// import { Button } from './Button'
-import { Button1 } from './Button1'
-import { Button2 } from './Button2'
-import { Game } from './Game'
+import { Game } from './Game';
 
 
 export class GameApplication extends PIXI.Application {
@@ -60,7 +52,7 @@ export class GameApplication extends PIXI.Application {
             backgroundColor: 0x989c99,
             width: GameApplication.STAGE_WIDTH,
             height: GameApplication.STAGE_HEIGHT,
-        }
+        };
     }
 
     private resizeCanvas(): void {
@@ -73,8 +65,4 @@ export class GameApplication extends PIXI.Application {
     private onResize() {
         this.renderer.resize(GameApplication.STAGE_WIDTH, GameApplication.STAGE_HEIGHT);
     }
-
-
-
-
 }

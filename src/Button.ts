@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as PIXI from "pixi.js";
 
@@ -8,7 +8,6 @@ export class Button extends PIXI.Container {
     protected background: PIXI.Sprite;
     private text: PIXI.Text;
     private label: string;
-    protected dispacher: PIXI.utils.EventEmitter
 
 
     constructor(label: string) {
@@ -16,20 +15,16 @@ export class Button extends PIXI.Container {
         this.label = label;
         this.init();
     }
-    public getDispacher(): PIXI.utils.EventEmitter {
-        return this.dispacher;
-    }
+
 
     protected init() {
-        //GameApplication.getApp().renderer
-        this.dispacher = new PIXI.utils.EventEmitter()
+
         this.createBackground();
         this.interactive = true;
-        // this.onPointerUp = this.onPointerUp.bind(this);
         this.onPointerDown = this.onPointerDown.bind(this);
 
-        this.setInterativeCallbacks()
-        this.createText()
+        this.setInterativeCallbacks();
+        this.createText();
 
     }
     private setInterativeCallbacks() {
@@ -38,7 +33,7 @@ export class Button extends PIXI.Container {
     }
     private createBackground() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
-        gfx.beginFill(0x0000ff)
+        gfx.beginFill(0x0000ff);
         gfx.drawRoundedRect(0, 0, 200, 40, 10);
         gfx.endFill();
         const texture: PIXI.Texture = GameApplication.getApp().renderer.generateTexture(gfx);
@@ -51,14 +46,14 @@ export class Button extends PIXI.Container {
             fontFamily: 'Minecraft',
             fontSize: 20,
             fill: 0xffff00
-        })
-        this.text.anchor.set(0.5)
+        });
+        this.text.anchor.set(0.5);
         this.text.x = this.background.width / 2;
-        this.text.y = this.background.height / 2
-        this.addChild(this.text)
+        this.text.y = this.background.height / 2;
+        this.addChild(this.text);
     }
     protected onPointerUp() {
-        console.log(this.background.tint)
+        console.log(this.background.tint);
         this.background.tint = 0xff0000;
         // override this ^
         // create a class that extends button on pointer down to change color with a different color 

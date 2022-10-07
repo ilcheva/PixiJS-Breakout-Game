@@ -1,29 +1,29 @@
 
 
 import { Button } from "./Button";
-// import { GameApplication } from "./GameApplication";
+import { EventDispacher } from './EventDispacher';
 
 
 export class Button1 extends Button {
     constructor(label: string) {
-        super(label)
+        super(label);
     }
     protected init() {
-        super.init()
+        super.init();
     }
 
 
     protected onPointerUp() {
-        super.onPointerUp
+        super.onPointerUp;
 
 
-        this.dispacher.emit('changeBtnUp')
-        
+        EventDispacher.getInstance().getDispacher().emit('changeBtnUp');
+
     }
 
     protected onPointerDown() {
-        super.onPointerDown()
-        this.dispacher.emit('changeBtnDown')
+        super.onPointerDown();
+        EventDispacher.getInstance().getDispacher().emit('changeBtnDown');
 
     }
 

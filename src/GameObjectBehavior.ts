@@ -1,5 +1,5 @@
 
-import { GameObject } from "./GameObject"
+import { GameObject } from "./GameObject";
 
 export class GameObjectBehavior {
     protected gameObjRef: GameObject;
@@ -9,6 +9,7 @@ export class GameObjectBehavior {
         this.gameObjRef = gameObjRef;
         this.init();
     }
+
     public destroy() { }
     protected init() { }
     public update(delta: number) { }
