@@ -1,3 +1,6 @@
+
+
+
 import * as PIXI from 'pixi.js';
 import { GameObject } from "./GameObject";
 import { GameObjectBehavior } from "./GameObjectBehavior";
@@ -6,7 +9,7 @@ import { EventDispacher } from './EventDispacher';
 import { BallBehavior } from './BallBehavior';
 
 
-export class SquareBehavior extends GameObjectBehavior {
+export class BlueSquareBehavior extends GameObjectBehavior {
 
     private square: PIXI.Sprite;
     private velocity: number = 10;
@@ -28,7 +31,7 @@ export class SquareBehavior extends GameObjectBehavior {
     }
     private createSquare() {
         const gfx: PIXI.Graphics = new PIXI.Graphics();
-        gfx.beginFill(0xffffff);
+        gfx.beginFill(0x0000ff);
         gfx.drawRect(0, 0, 100, 100);
         gfx.endFill();
 
@@ -37,34 +40,14 @@ export class SquareBehavior extends GameObjectBehavior {
 
         this.gameObjRef.addChild(this.square);
     }
-
-    private move(delta: number) {
-
-    }
+    
 
     public update(delta: number) {
         let wasHit: boolean = false;
+        this.gameObjRef.y += delta * this.velocity;
+        if (!wasHit && this.gameObjRef.y + this.gameObjRef.height >= GameApplication.getApp().view.height) {
+            this.gameObjRef.y =GameApplication.getApp().view.height -this.gameObjRef.height;
 
-
-        if (!wasHit && this.ballObjRef.x + this.ballObjRef.width >= this.gameObjRef.x && this.ballObjRef.x < this.gameObjRef.x + this.gameObjRef.width &&
-            this.ballObjRef.y + this.ballObjRef.height >= this.gameObjRef.y && this.ballObjRef.y < this.gameObjRef.y + this.gameObjRef.height) {
-            wasHit = true;
-
-
-            EventDispacher.getInstance().getDispacher().emit('updatescore');
-
-        }
-
-
-        if (wasHit) {
-            this.move(delta);
-        }
-
-        // colision manager 
-        // state pattern 
-        //modular controller
-
-
-
+        }  
     }
 }

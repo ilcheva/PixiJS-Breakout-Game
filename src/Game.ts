@@ -4,6 +4,7 @@ import * as PIXI from 'pixi.js';
 import { GameObject } from "./GameObject";
 import { BallBehavior } from './BallBehavior';
 import { SquareBehavior } from './SquareBehavior';
+import { BlueSquareBehavior } from './BlueSquareBehavior';
 import { GameApplication } from './GameApplication';
 import { Button1 } from './Button1';
 import { Button2 } from './Button2';
@@ -141,7 +142,7 @@ export class Game extends PIXI.Container {
         
 
         this.getGameObjById('gameObj2').removeBehavior('squareBehavior');
-        this.getGameObjById('gameObj2').addBehavior('ballBehavior', new BallBehavior(this.getGameObjById('gameObj2')));
+        this.getGameObjById('gameObj2').addBehavior('ballBehavior', new BlueSquareBehavior(this.getGameObjById('gameObj2')));
       
     }
 }
