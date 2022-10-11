@@ -14,6 +14,7 @@ import { Model } from './Model';
 
 
 export class Game extends PIXI.Container {
+
     private gameObjects: Map<string, GameObject>;
     private ticker: PIXI.Ticker;
 
